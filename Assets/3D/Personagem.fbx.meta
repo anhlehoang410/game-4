@@ -1,0 +1,458 @@
+fileFormatVersion: 2
+guid: 625f10f850789cc41b6fabe68dd743f4
+timeCreated: 1427308258
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Esqueleto
+    100002: Esqueleto|Abdome
+    100004: Esqueleto|Antebraco_L
+    100006: Esqueleto|Antebraco_R
+    100008: Esqueleto|Bacia
+    100010: Esqueleto|Bacia_L
+    100012: Esqueleto|Bacia_R
+    100014: Esqueleto|Biceps_L
+    100016: Esqueleto|Biceps_R
+    100018: Esqueleto|Cabeca
+    100020: Esqueleto|Canela_L
+    100022: Esqueleto|Canela_R
+    100024: Esqueleto|CenterOfMass
+    100026: Esqueleto|Clavicula_L
+    100028: Esqueleto|Clavicula_R
+    100030: Esqueleto|Controle_Braco.L
+    100032: Esqueleto|Controle_Braco.R
+    100034: Esqueleto|ControlePerna_L
+    100036: Esqueleto|ControlePerna_R
+    100038: Esqueleto|Coxa_L
+    100040: Esqueleto|Coxa_R
+    100042: Esqueleto|IK_Braco.L
+    100044: Esqueleto|IK_Braco.R
+    100046: Esqueleto|IK_Perna.L
+    100048: Esqueleto|IK_Perna.R
+    100050: Esqueleto|Torax
+    100052: Malha
+    100054: //RootNode
+    400000: Esqueleto
+    400002: Esqueleto|Abdome
+    400004: Esqueleto|Antebraco_L
+    400006: Esqueleto|Antebraco_R
+    400008: Esqueleto|Bacia
+    400010: Esqueleto|Bacia_L
+    400012: Esqueleto|Bacia_R
+    400014: Esqueleto|Biceps_L
+    400016: Esqueleto|Biceps_R
+    400018: Esqueleto|Cabeca
+    400020: Esqueleto|Canela_L
+    400022: Esqueleto|Canela_R
+    400024: Esqueleto|CenterOfMass
+    400026: Esqueleto|Clavicula_L
+    400028: Esqueleto|Clavicula_R
+    400030: Esqueleto|Controle_Braco.L
+    400032: Esqueleto|Controle_Braco.R
+    400034: Esqueleto|ControlePerna_L
+    400036: Esqueleto|ControlePerna_R
+    400038: Esqueleto|Coxa_L
+    400040: Esqueleto|Coxa_R
+    400042: Esqueleto|IK_Braco.L
+    400044: Esqueleto|IK_Braco.R
+    400046: Esqueleto|IK_Perna.L
+    400048: Esqueleto|IK_Perna.R
+    400050: Esqueleto|Torax
+    400052: Malha
+    400054: //RootNode
+    4300000: Malha
+    7400000: Esqueleto|Camera.001Action
+    7400002: Running
+    7400004: Malha|Camera.001Action
+    7400006: Idle
+    7400008: Falling
+    7400010: Landing
+    9500000: //RootNode
+    13700000: Malha
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Esqueleto|EsqueletoAction
+      firstFrame: 10
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Esqueleto
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Cabeca
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L/Esqueleto|Antebraco_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Controle_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|IK_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R/Esqueleto|Antebraco_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Controle_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|IK_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|ControlePerna_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L/Esqueleto|Canela_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|ControlePerna_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R/Esqueleto|Canela_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.R
+        weight: 1
+      - path: Malha
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Running
+      takeName: Esqueleto|EsqueletoAction
+      firstFrame: 60
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Esqueleto
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Cabeca
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L/Esqueleto|Antebraco_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Controle_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|IK_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R/Esqueleto|Antebraco_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Controle_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|IK_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|ControlePerna_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L/Esqueleto|Canela_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|ControlePerna_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R/Esqueleto|Canela_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.R
+        weight: 1
+      - path: Malha
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Falling
+      takeName: Esqueleto|EsqueletoAction
+      firstFrame: 99
+      lastFrame: 107
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Esqueleto
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Cabeca
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L/Esqueleto|Antebraco_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Controle_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|IK_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R/Esqueleto|Antebraco_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Controle_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|IK_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|ControlePerna_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L/Esqueleto|Canela_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|ControlePerna_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R/Esqueleto|Canela_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.R
+        weight: 1
+      - path: Malha
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Landing
+      takeName: Esqueleto|EsqueletoAction
+      firstFrame: 111
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Esqueleto
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Cabeca
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Biceps_L/Esqueleto|Antebraco_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|Controle_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_L/Esqueleto|IK_Braco.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Biceps_R/Esqueleto|Antebraco_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|Controle_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Abdome/Esqueleto|Torax/Esqueleto|Clavicula_R/Esqueleto|IK_Braco.R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|ControlePerna_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_L/Esqueleto|Coxa_L/Esqueleto|Canela_L
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|ControlePerna_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|CenterOfMass/Esqueleto|Bacia/Esqueleto|Bacia_R/Esqueleto|Coxa_R/Esqueleto|Canela_R
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.L
+        weight: 1
+      - path: Esqueleto/Esqueleto|IK_Perna.R
+        weight: 1
+      - path: Malha
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .200000003
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
