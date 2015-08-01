@@ -26,16 +26,32 @@ public class Player : ObjetoDeJogo {
 	// Update is called once per frame
 	protected override void Update () 
 	{
-		ChecaProfundidade();
-		if(EstaCaindo())
-			VerificaChao();
-
-		tr.rotation = rotacionaCamera.transform.rotation;
 		base.Update();
+		tr.rotation = rotacionaCamera.transform.rotation;
 	}
+
+//	void LateUpdate()
+//	{
+//		if(!estados.naParede)
+//			VerificaChao();
+//	}
 
 	void FixedUpdate()
 	{
+		if(!estados.noAr)
+		{
+			trCentroD.localPosition = new Vector3(0.6f, trCentroD.localPosition.y, trCentroD.localPosition.z);
+			trCentroE.localPosition = new Vector3(-0.4f, trCentroE.localPosition.y, trCentroE.localPosition.z);
+		}else
+		{
+			trCentroD.localPosition = new Vector3(0.5f, trCentroD.localPosition.y, trCentroD.localPosition.z);
+			trCentroE.localPosition = new Vector3(-0.3f, trCentroE.localPosition.y, trCentroE.localPosition.z);
+		}
+
+		ChecaProfundidade();
+//		if(EstaCaindo() && !estados.naParede)
+			VerificaChao();
+
 		intensidadeVelVertical = Mathf.Clamp(rb.velocity.y*0.5f, 1, 5);
 		vetorIntensidadeVertical = Vector3.down * 0.25f * (-0.5f + intensidadeVelVertical);
 	}
@@ -43,23 +59,10 @@ public class Player : ObjetoDeJogo {
 	////---CHECAGENS DE COLISAO---////
 	void ChecaProfundidade ()
 	{
+		estados.direcaoDaParede = 0;
 		if (rotacionaCamera.Rotacionando ())
 			return;
 
-		if(CabecaBateuEmAlgo())
-		{
-			Transform trColisor = colisaoEmProfundidade.transform;
-			Vector3 pontoDeColisao = colisaoEmProfundidade.point;
-
-			if(RetornaPontoMaisProximo(pontoDeColisao, tr.position).Equals(pontoDeColisao))
-			{
-				if(log)
-					Debug.Log("Topo colidiu com "+colisaoEmProfundidade.collider.name, colisaoEmProfundidade.transform);
-				novaPos = pontoDeColisao - tr.forward;
-				if(!ColisaoOcorreuComObjetoAoFundo())
-					AtualizaProfundidade(trColisor);
-			}
-		}
 		if(AtrasDeAlgo())
 		{
 //			if(log)
@@ -95,8 +98,61 @@ public class Player : ObjetoDeJogo {
 //			{
 				novaPos = pontoDeColisao + tr.forward * 0.5f;
 				AtualizaProfundidade(trColisor);
+				estados.HabilitaPulo();
 			}
 		}
+
+		if(ColidiuComAlgoNaDireita() || ColidiuComAlgoNaEsquerda())
+		{
+			Transform trObjeto = colisaoEmProfundidade.transform;
+//			Debug.Log(rb.velocity.x);
+			if(trObjeto.CompareTag("Parede"))
+			{
+				estados.direcaoDaParede = RetornaLadoEmRelacaoAoPlayer(trObjeto.position);
+				if(estados.noAr)
+				{
+					novaPos = colisaoEmProfundidade.point + tr.forward * 0.5f;
+					AtualizaProfundidade(trObjeto);
+
+					if(estados.ApertandoParaOsLados() || movimento.contTempoPraPularDaParede <= movimento.tempoMaximoAtePuloRapido)
+						estados.AtivaEstaNaParede();
+
+					estados.Para();
+					return;
+				}else
+				{
+					if(ApertandoParaOLadoDaParede())
+					{
+						estados.Para();
+						return;
+					}
+				}
+			}else
+			{
+				estados.DesabilitaEstaNaParede();
+			}
+		}
+
+		if(CabecaBateuEmAlgo())
+		{
+			Transform trColisor = colisaoEmProfundidade.transform;
+			Vector3 pontoDeColisao = colisaoEmProfundidade.point;
+			
+			if(RetornaPontoMaisProximo(pontoDeColisao, tr.position).Equals(pontoDeColisao))
+			{
+				if(log)
+					Debug.Log("Topo colidiu com "+colisaoEmProfundidade.collider.name, colisaoEmProfundidade.transform);
+				novaPos = pontoDeColisao - tr.forward;
+				if(!ColisaoOcorreuComObjetoAoFundo())
+					AtualizaProfundidade(trColisor);
+			}
+		}
+
+		if(estados.naParede)
+		{
+			return;
+		}
+
 		if(estados.GetDirecao() == Definicoes.DIREITA) //movendo para a direita
 		{
 			Debug.DrawLine(trCentroD.position - trCentroD.forward * profundidadeDeChecagem, 
@@ -105,6 +161,7 @@ public class Player : ObjetoDeJogo {
 			if(ColidiuComAlgoNaDireita())
 			{
 				Transform trObjetoDireita = colisaoEmProfundidade.transform;
+
 				if(!ColisaoOcorreuComObjetoAoFundo())
 				{
 					if(log)
@@ -118,9 +175,22 @@ public class Player : ObjetoDeJogo {
 							Vector3 colisorMaisProximoDaCamera = RetornaPontoMaisProximo(trObjetoDireita.position, colisaoEmProfundidade.transform.position);
 							novaPos = colisorMaisProximoDaCamera - tr.forward * 1.5f;
 							if(colisorMaisProximoDaCamera == trObjetoDireita.position)
+							{
 								AtualizaProfundidade(trObjetoDireita);
-							else
+								if(trObjetoDireita.CompareTag("Parede"))
+								{
+									estados.AtivaEstaNaParede();
+									return;
+								}
+							}else
+							{
 								AtualizaProfundidade(colisaoEmProfundidade.transform);
+								if(colisaoEmProfundidade.transform.CompareTag("Parede"))
+								{
+									estados.AtivaEstaNaParede();
+									return;
+								}
+							}
 							estados.Para();
 						}else
 						{
@@ -150,6 +220,7 @@ public class Player : ObjetoDeJogo {
 			}else
 			{
 				estados.Move();
+				estados.DesabilitaEstaNaParede();
 				movimento.DefineNovoEixo();
 			}
 		}else if(estados.GetDirecao() == Definicoes.ESQUERDA) //movendo para a esquerda
@@ -173,9 +244,23 @@ public class Player : ObjetoDeJogo {
 							Vector3 colisorMaisProximoDaCamera = RetornaPontoMaisProximo(trObjetoEsquerda.position, colisaoEmProfundidade.transform.position);
 							novaPos = colisorMaisProximoDaCamera - tr.forward * 1.5f;
 							if(colisorMaisProximoDaCamera == trObjetoEsquerda.position)
+							{
 								AtualizaProfundidade(trObjetoEsquerda);
-							else
+								if(trObjetoEsquerda.CompareTag("Parede"))
+								{
+									estados.AtivaEstaNaParede();
+									return;
+								}
+							}else
+							{
 								AtualizaProfundidade(colisaoEmProfundidade.transform);
+								if(colisaoEmProfundidade.transform.CompareTag("Parede"))
+								{
+									estados.AtivaEstaNaParede();
+									return;
+								}
+							}
+							estados.Para();
 						}else
 						{
 							estados.Move();
@@ -205,9 +290,12 @@ public class Player : ObjetoDeJogo {
 			}else
 			{
 				estados.Move();
+				estados.DesabilitaEstaNaParede();
 				movimento.DefineNovoEixo();
 			}
 		}
+
+
 	}
 	
 	bool CabecaBateuEmAlgo ()
@@ -234,24 +322,32 @@ public class Player : ObjetoDeJogo {
 		Debug.DrawLine(trBaseM.position, trBaseM.position - trBaseM.up * 0.25f * intensidadeVelVertical);
 		Debug.DrawLine(trBaseD.position, trBaseD.position - trBaseD.up * 0.25f * intensidadeVelVertical);
 		Debug.DrawLine(trBaseE.position, trBaseE.position - trBaseE.up * 0.25f * intensidadeVelVertical);
-		
-//		if (Physics.Linecast (trBaseM.position, trBaseM.position - trBaseM.up * 0.25f * intensidadeVelVertical, layerPlataforma) &&
-//		    
-//		    (Physics.Linecast (trBaseD.position, trBaseD.position - trBaseD.up * 0.25f * intensidadeVelVertical, layerPlataforma) ||	
-//		 	Physics.Linecast (trBaseE.position, trBaseE.position - trBaseE.up * 0.25f * intensidadeVelVertical, layerPlataforma))) 
-		if(HaPlataformaEmProfundidade(trBaseM.position) &&
+		if(log)
+			Debug.Log("Verificando chao");
+		if(HaPlataformaEmProfundidade(trBaseM.position) ||
 		   (HaPlataformaEmProfundidade(trBaseD.position) || HaPlataformaEmProfundidade(trBaseE.position)))
 
 		{
+			if(log)
+				Debug.Log("Chao encontrado");
 			if(estados.noAr && EstaCaindo())
 				Invoke("AtivaEstaNoChao", 0.01f);
+//			else if(!estados.noAr && !estados.podePular)
+//				AtivaEstaNoChao();
+
 			CancelInvoke("AtivaEstaNoAr");
+			estados.DesabilitaEstaNaParede();
 			return true;
 		}else
 		{
+			if(log)
+				Debug.Log("Nenhum chao encontrado");
+			if(estados.naParede)
+				return true;
+
 			Invoke("AtivaEstaNoAr", 0.2f);
 			CancelInvoke("AtivaEstaNoChao");
-			estados.podePular = false;
+//			estados.podePular = false;
 			return false;
 		}
 	}
@@ -268,8 +364,7 @@ public class Player : ObjetoDeJogo {
 
 	void AtivaEstaNoChao()
 	{
-		Debug.Log("Chao");
-		estados.AtivaEstaNoChao();
+		estados.HabilitaPulo();
 	}
 	
 	bool HaPlataformaEmProfundidade(Vector3 pontoParaChecar)
@@ -388,10 +483,41 @@ public class Player : ObjetoDeJogo {
 			if(ponto1.z > ponto2.z)
 				return ponto1;
 			return ponto2;
+		case RotacionaCamera.RotacaoAtual.Direita:
+			if(ponto1.z > ponto2.z)
+				return ponto2;
+			return ponto1;
 		default:
 			if(ponto1.x < ponto2.x)
 				return ponto1;
 			return ponto2;
+		}
+	}
+
+	int RetornaLadoEmRelacaoAoPlayer (Vector3 ponto)
+	{
+		switch(rotacionaCamera.rotacaoAtual)
+		{
+		case RotacionaCamera.RotacaoAtual.Frente:
+			if(ponto.x < tr.position.x)
+				return Definicoes.ESQUERDA;
+			return Definicoes.DIREITA;
+		case RotacionaCamera.RotacaoAtual.Esquerda:
+			if(ponto.z < tr.position.z)
+				return Definicoes.DIREITA;
+			return Definicoes.ESQUERDA;
+		case RotacionaCamera.RotacaoAtual.Fundo:
+			if(ponto.x < tr.position.x)
+				return Definicoes.DIREITA;
+			return Definicoes.ESQUERDA;
+		case RotacionaCamera.RotacaoAtual.Direita:
+			if(ponto.z < tr.position.z)
+				return Definicoes.ESQUERDA;
+			return Definicoes.DIREITA;
+		default:
+			if(ponto.x < tr.position.x)
+				return Definicoes.ESQUERDA;
+			return Definicoes.DIREITA;
 		}
 	}
 	
@@ -401,4 +527,24 @@ public class Player : ObjetoDeJogo {
 		return (Physics.Linecast(trMeio.position - trMeio.forward * profundidadeDeChecagem, trMeio.position, layerPlataforma + layerParede));
 	}
 	////---FIM CHECAGENS DE COLISAO---////
+	
+	bool ApertandoParaOLadoDaParede ()
+	{
+		return ((estados.direcaoDaParede.Equals(Definicoes.DIREITA) && estados.GetDirecao().Equals(Definicoes.DIREITA)) ||
+			(estados.direcaoDaParede.Equals(Definicoes.ESQUERDA) && estados.GetDirecao().Equals(Definicoes.ESQUERDA)));
+	}
+
+	protected override IEnumerator AtualizaUltimaPosicao ()
+	{
+		while(true)
+		{
+			yield return new WaitForEndOfFrame();
+			if(!estados.noAr && !rotacionaCamera.Rotacionando() && !estados.naParede && HaChaoNoPonto(tr.position))
+			{
+				ultimaPos = tr.position;
+				ultimaRotacao = rotacionaCamera.rotacaoAtual;
+			}
+			yield return new WaitForSeconds(delayParaChecar);
+		}
+	}
 }

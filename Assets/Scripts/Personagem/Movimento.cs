@@ -8,16 +8,24 @@ public class Movimento : MonoBehaviour {
 	Estados estados;
 	Player objetoDeJogo;
 
-	public float velocidade = 8;
+	public float velocidade = 10;
 	public float velAceleracao = 8;
-	public float velAceleracaoNoAr = 3;
-	public float velDesaceleracaoNoAr = 3;
-	public float velAceleracaoVertical = 20;
+	public float velAceleracaoNoAr = 7;
+	public float velDesaceleracaoNoAr = 0.5f;
+	public float velAceleracaoVertical = 30;
 	public float maxVelVertical = -40;
 
-	public float forcaPulo = 9;
+	public float forcaPulo = 12;
 	public float intervaloPuloMaisAlto = 0.6f;
 	public float intervaloPuloMaisAltoOriginal = 0.6f;
+
+	public float intervaloAtePuloDaParede = 0.25f;
+	public Vector3 direcaoPuloDaParede = new Vector3(0.75f, 1, 0);
+	public float forcaPuloDaParede = 8;
+	public float velQuedaNaParede = 10;
+	public float tempoMaximoAtePuloDirecionado = 0.5f;
+	public float tempoMaximoAtePuloRapido = 0.05f;
+	public float contTempoPraPularDaParede = 0;
 
 	public float tempoAteCorrer = 0.5f;
 	float tempoAndando = 0;
@@ -56,10 +64,10 @@ public class Movimento : MonoBehaviour {
 			Pula();
 
 		if(estados.noAr)
-			anim.SetBool ("NoAr", true);
-		else
 		{
-			intervaloPuloMaisAlto = intervaloPuloMaisAltoOriginal;
+			anim.SetBool ("NoAr", true);
+		}else
+		{
 			anim.SetBool("NoAr", false);
 		}
 
@@ -70,13 +78,31 @@ public class Movimento : MonoBehaviour {
 				estados.DesativaPuloMaisAlto();	
 			}else
 			{
-//				if(log)
-//					Debug.Log("Pulando mais alto");
 				rb.velocity += Vector3.up * forcaPulo * intervaloPuloMaisAlto * Time.deltaTime * 5;
 				intervaloPuloMaisAlto -= Time.deltaTime;
 			}
 		}else
 			intervaloPuloMaisAlto = intervaloPuloMaisAltoOriginal;
+
+//		if(estados.naParede)
+//		{
+//			if(estados.direcaoDaParede.Equals(Definicoes.DIREITA) && estados.GetDirecao().Equals(Definicoes.DIREITA) ||
+//			   estados.direcaoDaParede.Equals(Definicoes.ESQUERDA) && estados.GetDirecao().Equals(Definicoes.ESQUERDA))
+//			{
+//				contTempoPraPularDaParede = 0;
+//			}else
+//			{
+//				contTempoPraPularDaParede += Time.deltaTime;
+//				if(contTempoPraPularDaParede >= tempoMaximoAtePuloDirecionado)
+//				{
+//					estados.DesabilitaEstaNaParede();
+////					tr.position -= Vector3.right * estados.direcaoDaParede * 0.25f;
+//				}
+//			}
+//		}else if(!estados.noAr)
+//		{
+//			contTempoPraPularDaParede = 0;
+//		}
 	}
 
 	void LateUpdate()
@@ -111,44 +137,75 @@ public class Movimento : MonoBehaviour {
 
 	void AtualizaVelocidade ()
 	{
-		if(estados.movendo)
-		{
-			if(tempoAndando >= tempoAteCorrer)
-			{
-				estados.correndo = true;
-			}else if(!estados.noAr)
-				tempoAndando += Time.deltaTime;
-		}else
-		{
-			tempoAndando = 0;
-		}
+//		if(estados.movendo)
+//		{
+//			if(tempoAndando >= tempoAteCorrer)
+//			{
+//				estados.correndo = true;
+//			}else if(!estados.noAr)
+//				tempoAndando += Time.deltaTime;
+//		}else
+//		{
+//			tempoAndando = 0;
+//		}
 
 		if(estados.noAr)
 		{
-			if(estados.correndo)
-			{
+//			if(estados.correndo)
+			if(estados.GetDirecao() != 0)
 				velFinal = Mathf.Lerp(velFinal, (estados.GetDirecao() * velocidade) -(estados.GetDirecao() * velDesaceleracaoNoAr),
 				                      Time.deltaTime * velAceleracaoNoAr);
-			}else
+			else
+				velFinal = Mathf.Lerp(velFinal, 0, Time.deltaTime * velAceleracaoNoAr);
+
+			if(estados.naParede)
 			{
-				velFinal = Mathf.Clamp(Mathf.Lerp(velFinal, (estados.GetDirecao() * velocidade) -(estados.GetDirecao() * velDesaceleracaoNoAr * 2),
-				                      	Time.deltaTime * velDesaceleracaoNoAr),
-				                       -velocidade * (0.5f + tempoAndando),
-				                       velocidade * (0.5f + tempoAndando));
+				if(estados.direcaoDaParede == estados.GetDirecao())
+					velFinal = 0;
 			}
+//			}
+//			else
+//			{
+//				velFinal = Mathf.Clamp(Mathf.Lerp(velFinal, (estados.GetDirecao() * velocidade) -(estados.GetDirecao() * velDesaceleracaoNoAr * 2),
+//				                      	Time.deltaTime * velDesaceleracaoNoAr),
+//				                       -velocidade * (0.5f + tempoAndando),
+//				                       velocidade * (0.5f + tempoAndando));
+//			}
 
-
-			velAtual = Mathf.Lerp(velAtual, velFinal, Time.deltaTime * velAceleracaoNoAr + Mathf.Abs(velAtual * 1.25f));
+			if((velAtual > 0 && velFinal < 0) || (velAtual < 0 && velFinal > 0))
+				velAtual = 0;
+			else
+				velAtual = Mathf.Lerp(velAtual, velFinal, Time.deltaTime * velAceleracaoNoAr + Mathf.Abs(velAtual * 1.25f));
 		}else
 		{
-			velFinal = estados.GetDirecao() * velocidade;
-			velAtual = Mathf.Lerp(velAtual, velFinal, Time.deltaTime * velAceleracao);
+			if(!estados.naParede)
+			{
+//				if(estados.correndo)
+				if(estados.direcaoDaParede == estados.GetDirecao())
+					velFinal = 0;
+				else
+					velFinal = estados.GetDirecao() * velocidade;
+//				else
+//					velFinal = estados.GetDirecao() * (velocidade/2);
+				velAtual = Mathf.Lerp(velAtual, velFinal, Time.deltaTime * velAceleracao);
+			}else
+			{
+				ZeraEixo(Vector3.right);
+			}
 		}
 		
-		if(estados.noAr && rb.velocity.y > maxVelVertical)
-			rb.velocity += Vector3.ClampMagnitude(Vector3.down * Mathf.Abs(rb.velocity.y) * 0.01f, 0.1f) + (Vector3.down * velAceleracaoVertical) * Time.deltaTime;
-		else
-			rb.velocity += Vector3.down * velAceleracaoVertical * 0.05f * Time.deltaTime;
+		if(rb.velocity.y > maxVelVertical)
+		{
+			if(estados.noAr)
+				rb.velocity += Vector3.ClampMagnitude(Vector3.down * Mathf.Abs(rb.velocity.y) * 0.01f, 0.1f) + (Vector3.down * velAceleracaoVertical) * Time.deltaTime;
+//			else if(estados.naParede && rb.velocity.x < 0)
+//			{
+//				float novoY = Mathf.Clamp(rb.velocity.y - (velQuedaNaParede * Time.deltaTime), -velQuedaNaParede, 0);
+//				rb.velocity = new Vector3(rb.velocity.x, novoY, rb.velocity.z);
+//			}
+		}
+//		else
+//			rb.velocity += Vector3.down * velAceleracaoVertical * 0.05f * Time.deltaTime;
 		
 		
 		if(estados.rotacionando)
@@ -160,6 +217,10 @@ public class Movimento : MonoBehaviour {
 			anim.speed = 1;
 			rb.MovePosition(rb.position + (new Vector3(dirMovimento.x * velAtual, 0, dirMovimento.z * velAtual) * Time.deltaTime));
 		}
+//		else
+//		{
+//			rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, velDesaceleracaoNoAr);
+//		}
 	}
 
 	void ChecaVelocidadeDaQueda ()
@@ -170,18 +231,40 @@ public class Movimento : MonoBehaviour {
 			if(objetoDeJogo.ultimaPlataformaColidida != null && !objetoDeJogo.HaChaoNoPonto(tr.position))
 				tr.position += (objetoDeJogo.ultimaPlataformaColidida.position - tr.position).normalized * 2;
 			objetoDeJogo.ResetaRotacaoDeCamera();
-
+			estados.Morre();
 			rb.velocity = Vector3.zero;
 		}
 	}
 
 	void Pula()
 	{
-//		if(log)
-//			Debug.Log("Pulando");
+		if(estados.naParede)
+		{
+//			if(estados.direcaoDaParede.Equals(Definicoes.DIREITA))
+//			{
+//				direcaoPuloDaParede.x = -Mathf.Abs(direcaoPuloDaParede.x);
+//				estados.dirDeMovimento = Estados.DirDeMovimento.Esquerda;
+//			}else
+//			{
+//				direcaoPuloDaParede.x = Mathf.Abs(direcaoPuloDaParede.x);
+//				estados.dirDeMovimento = Estados.DirDeMovimento.Direita;
+//			}
+//
+//			rb.position += direcaoPuloDaParede * 0.25f;
+//			Vector3 direcaoPuloDaPredeFinal = direcaoPuloDaParede;
+//			if(!estados.direcaoDaParede.Equals(estados.direcaoDaParede))
+//				direcaoPuloDaPredeFinal.x *= 1.5f;
+//			rb.velocity = direcaoPuloDaParede * forcaPuloDaParede;
+//			estados.DesabilitaEstaNaParede();
+//			if(log)
+//				Debug.Log("Pulando da parede");
+//			contTempoPraPularDaParede = 0;
+		}else
+		{
+			rb.position += Vector3.up * 0.1f;
+			rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
+		}
 		estados.pulando = false;
-		rb.position += Vector3.up * 0.1f;
-		rb.velocity = Vector3.up * forcaPulo;
 		anim.SetBool ("NoAr", true);
 	}
 

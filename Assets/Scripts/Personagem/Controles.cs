@@ -24,9 +24,9 @@ public class Controles : MonoBehaviour {
 	{
 		inputHorizontal = Input.GetAxis("Horizontal");
 
-		if(inputHorizontal > 0)
+		if(inputHorizontal > 0.1f)
 			estados.Direita();
-		else if(inputHorizontal < 0)
+		else if(inputHorizontal < -0.1f)
 			estados.Esquerda();
 		else
 			estados.Idle();

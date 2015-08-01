@@ -46,7 +46,7 @@ public class ObjetoDeJogo : MonoBehaviour {
 		rotacionaCamera.AtualizaRotacaoAlvo();
 	}
 
-	IEnumerator AtualizaUltimaPosicao ()
+	protected virtual IEnumerator AtualizaUltimaPosicao ()
 	{
 		while(true)
 		{

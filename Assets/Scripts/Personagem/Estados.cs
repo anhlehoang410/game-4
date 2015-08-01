@@ -9,6 +9,8 @@ public class Estados : MonoBehaviour {
 	public bool movendo;
 	public bool correndo;
 	public bool rotacionando;
+	public bool naParede;
+	public int direcaoDaParede;
 
 	public enum DirDeMovimento
 	{
@@ -52,16 +54,17 @@ public class Estados : MonoBehaviour {
 	public void Pula()
 	{
 		if(!podePular)
-			return ;
+			return;
 		
 		pulando = true;
 		podePular = false;
-		pulandoMaisAlto = true;
+		if(!naParede)
+			pulandoMaisAlto = true;
 		correndo = false;
 		Invoke("AtivaEstaNoAr", 0.05f);
 	}
 
-	public void AtivaEstaNoChao()
+	public void HabilitaPulo()
 	{
 		noAr = false;
 		podePular = true;
@@ -72,6 +75,22 @@ public class Estados : MonoBehaviour {
 	public void AtivaEstaNoAr()
 	{
 		noAr = true;
+		podePular = false;
+	}
+
+	public void AtivaEstaNaParede()
+	{
+//		noAr = false;
+		naParede = true;
+//		DesativaPuloMaisAlto();
+		pulando = false;
+//		podePular = true;
+		movendo = false;
+	}
+
+	public void DesabilitaEstaNaParede()
+	{
+		naParede = false;
 	}
 
 	public void DesativaPuloMaisAlto()
@@ -80,6 +99,28 @@ public class Estados : MonoBehaviour {
 //			Debug.Log("Desativando pulo mais alto");
 		pulandoMaisAlto = false;
 		pulando = false;
+	}
+
+	public void Morre ()
+	{
+		noAr = false;
+		podePular = true;
+		naParede = false;
+		pulando	= false;
+		movendo = false;
+		pulandoMaisAlto = false;
+		correndo = false;
+		rotacionando = false;
+	}
+
+	public bool ApertandoParaParede()
+	{
+		return GetDirecao().Equals(direcaoDaParede);
+	}
+
+	public bool ApertandoParaOsLados()
+	{
+		return (GetDirecao().Equals(Definicoes.DIREITA) || GetDirecao().Equals(Definicoes.ESQUERDA));
 	}
 
 	public int GetDirecao()
